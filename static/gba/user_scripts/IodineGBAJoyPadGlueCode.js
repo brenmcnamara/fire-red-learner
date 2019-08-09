@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /*
  Copyright (C) 2012-2015 Grant Galitz
  
@@ -8,73 +8,112 @@
  
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+var keyReverseLookup = {
+  13: 'Start',
+  16: 'Select',
+  37: 'Left',
+  38: 'Up',
+  39: 'Right',
+  40: 'Down',
+  49: 'L',
+  50: 'R',
+  74: 'A',
+  81: 'B',
+  88: 'A',
+  89: 'B',
+  90: 'B',
+};
+
 var keyZones = [
-    //Use this to control the key mapping:
-                //A:
-                [88, 74],
-                //B:
-                [90, 81, 89],
-                //Select:
-                [16],
-                //Start:
-                [13],
-                //Right:
-                [39],
-                //Left:
-                [37],
-                //Up:
-                [38],
-                //Down:
-                [40],
-                //R:
-                [50],
-                //L:
-                [49]
+  //Use this to control the key mapping:
+  //A:
+  [88, 74],
+  //B:
+  [90, 81, 89],
+  //Select:
+  [16],
+  //Start:
+  [13],
+  //Right:
+  [39],
+  //Left:
+  [37],
+  //Up:
+  [38],
+  //Down:
+  [40],
+  //R:
+  [50],
+  //L:
+  [49],
 ];
 function keyDown(e) {
-    var keyCode = e.keyCode | 0;
-    for (var keyMapIndex = 0; (keyMapIndex | 0) < 10; keyMapIndex = ((keyMapIndex | 0) + 1) | 0) {
-        var keysMapped = keyZones[keyMapIndex | 0];
-        var keysTotal = keysMapped.length | 0;
-        for (var matchingIndex = 0; (matchingIndex | 0) < (keysTotal | 0); matchingIndex = ((matchingIndex | 0) + 1) | 0) {
-            if ((keysMapped[matchingIndex | 0] | 0) == (keyCode | 0)) {
-                Iodine.keyDown(keyMapIndex | 0);
-                if (e.preventDefault) {
-                    e.preventDefault();
-                }
-            }
+  var keyCode = e.keyCode | 0;
+  for (
+    var keyMapIndex = 0;
+    (keyMapIndex | 0) < 10;
+    keyMapIndex = ((keyMapIndex | 0) + 1) | 0
+  ) {
+    var keysMapped = keyZones[keyMapIndex | 0];
+    var keysTotal = keysMapped.length | 0;
+    for (
+      var matchingIndex = 0;
+      (matchingIndex | 0) < (keysTotal | 0);
+      matchingIndex = ((matchingIndex | 0) + 1) | 0
+    ) {
+      if ((keysMapped[matchingIndex | 0] | 0) == (keyCode | 0)) {
+        LOG_INFO(
+          'Key down: ' +
+            keyReverseLookup[keyCode] +
+            ' (Key Code: ' +
+            keyCode +
+            ')',
+        );
+        Iodine.keyDown(keyMapIndex | 0);
+        if (e.preventDefault) {
+          e.preventDefault();
         }
+      }
     }
+  }
 }
 function keyUp(keyCode) {
-    keyCode = keyCode | 0;
-    for (var keyMapIndex = 0; (keyMapIndex | 0) < 10; keyMapIndex = ((keyMapIndex | 0) + 1) | 0) {
-        var keysMapped = keyZones[keyMapIndex | 0];
-        var keysTotal = keysMapped.length | 0;
-        for (var matchingIndex = 0; (matchingIndex | 0) < (keysTotal | 0); matchingIndex = ((matchingIndex | 0) + 1) | 0) {
-            if ((keysMapped[matchingIndex | 0] | 0) == (keyCode | 0)) {
-                Iodine.keyUp(keyMapIndex | 0);
-            }
-        }
+  keyCode = keyCode | 0;
+  for (
+    var keyMapIndex = 0;
+    (keyMapIndex | 0) < 10;
+    keyMapIndex = ((keyMapIndex | 0) + 1) | 0
+  ) {
+    var keysMapped = keyZones[keyMapIndex | 0];
+    var keysTotal = keysMapped.length | 0;
+    for (
+      var matchingIndex = 0;
+      (matchingIndex | 0) < (keysTotal | 0);
+      matchingIndex = ((matchingIndex | 0) + 1) | 0
+    ) {
+      if ((keysMapped[matchingIndex | 0] | 0) == (keyCode | 0)) {
+        Iodine.keyUp(keyMapIndex | 0);
+      }
     }
+  }
 }
 function keyUpPreprocess(e) {
-    var keyCode = e.keyCode | 0;
-    switch (keyCode | 0) {
-        case 68:
-            lowerVolume();
-            break;
-        case 82:
-            raiseVolume();
-            break;
-        case 51:
-            Iodine.incrementSpeed(0.10);
-            break;
-        case 52:
-            Iodine.incrementSpeed(-0.10);
-            break;
-        default:
-            //Control keys / other
-            keyUp(keyCode);
-    }
+  var keyCode = e.keyCode | 0;
+  switch (keyCode | 0) {
+    case 68:
+      lowerVolume();
+      break;
+    case 82:
+      raiseVolume();
+      break;
+    case 51:
+      Iodine.incrementSpeed(0.1);
+      break;
+    case 52:
+      Iodine.incrementSpeed(-0.1);
+      break;
+    default:
+      //Control keys / other
+      keyUp(keyCode);
+  }
 }
