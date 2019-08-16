@@ -2,6 +2,21 @@
 lib/
 build/
 
+.env
+.flaskenv
+*.pyc
+*.pyo
+env/
+env*
+*.egg
+*.egg-info/
+_mailinglist
+.tox/
+.cache/
+.pytest_cache/
+.idea/
+docs/_build/
+
 # Mac
 .DS_Store
 

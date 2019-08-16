@@ -138,7 +138,7 @@ window.onload = function() {
   downloadBIOS();
 };
 function downloadBIOS() {
-  downloadFile('static/Binaries/gba_bios.bin', registerBIOS);
+  downloadFile('/static/Binaries/gba_bios.bin', registerBIOS);
 }
 function registerBIOS() {
   processDownload(this, attachBIOS);
@@ -147,7 +147,7 @@ function registerBIOS() {
 function downloadROM(gamename) {
   Iodine.pause();
   showTempString('Downloading "' + games[gamename] + '."');
-  downloadFile('static/Binaries/' + gamename + '.gba', registerROM);
+  downloadFile('/static/Binaries/' + gamename + '.gba', registerROM);
 }
 function registerROM() {
   clearTempString();

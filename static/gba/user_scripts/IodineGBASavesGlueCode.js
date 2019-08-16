@@ -9,6 +9,7 @@
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 function ImportSaveCallback(name) {
+    LOG_INFO('LOADING: ' + name)
     try {
         var save = findValue("SAVE_" + name);
         if (save != null) {
@@ -24,7 +25,12 @@ function ImportSaveCallback(name) {
 function ExportSave() {
     Iodine.exportSave();
 }
+
+function ImportSave() {
+    Iodine.importSave();
+}
 function ExportSaveCallback(name, save) {
+    LOG_INFO('Saving: ' + name)
     if (name != "") {
         try {
             setValue("SAVE_" + name, arrayToBase64(save));
